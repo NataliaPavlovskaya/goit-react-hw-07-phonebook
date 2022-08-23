@@ -7,7 +7,7 @@ import { getIsAdded } from '../../redux/contacts/contacts-selectors';
 
 export default function ContactsForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const isAdded = useSelector(getIsAdded);
   const dispatch = useDispatch();
 
@@ -17,11 +17,11 @@ export default function ContactsForm() {
     if (isAdded(name)) {
       return alert(`${name} is already in contacts`);
     } else {
-      dispatch(addContact(name, number));
+      dispatch(addContact(name, phone));
     }
 
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -43,12 +43,12 @@ export default function ContactsForm() {
         <input
           className={styles.input}
           type="tel"
-          name="number"
-          id="number"
-          value={number}
-          onChange={e => setNumber(e.target.value)}
+          name="phone"
+          id="phone"
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
         />
-        <button type="submit" disabled={!(name && number)}>
+        <button type="submit" disabled={!(name && phone)}>
           add contact
         </button>
       </form>

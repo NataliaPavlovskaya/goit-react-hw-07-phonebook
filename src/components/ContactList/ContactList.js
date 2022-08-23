@@ -11,10 +11,10 @@ export default function ContactsList() {
   return (
     <>
       <ul>
-        {filterContacts.map(({ id, name, number }) => (
+        {filterContacts.map(({ id, name, phone }) => (
           <li key={id}>
             <p className={styles.nameText}>
-              {name}: <span>{number}</span>
+              {name}: <span>{phone}</span>
             </p>
             <button type="button" onClick={() => dispatch(deleteContacts(id))}>
               Delete
