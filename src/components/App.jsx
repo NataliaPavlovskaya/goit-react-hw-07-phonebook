@@ -28,8 +28,8 @@ function App() {
       </Section>
 
       {isLoading ? (
-        <Oval height={80}
-              width={80}
+        <Oval height={40}
+              width={40}
               color="#4fa94d"
               wrapperStyle={{}}
               wrapperClass=""
