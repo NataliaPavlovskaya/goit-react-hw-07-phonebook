@@ -1,91 +1,61 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from "prop-types";
-import styles from "./ContactForm.module.css";
-import { addContacts } from '../../redux/contacts-actions';
+import propTypes from 'prop-types';
+import styles from './ContactForm.module.css';
+import { addContact } from '../../redux/contacts/contacts-operations';
+import { getIsAdded } from '../../redux/contacts/contacts-selectors';
 
+export default function ContactsForm() {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const isAdded = useSelector(getIsAdded);
+  const dispatch = useDispatch();
 
-
-export default function ContactForm() {
-const [name, setName] = useState('');
-const [number, setNumber] = useState('');
-const { contacts } = useSelector(state => state);
-const dispatch = useDispatch();
-
-const onAddContacts = (name, number) => dispatch(addContacts(name, number));
-
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const isAdded = name =>
-      contacts.map(contact => contact.name).includes(name);
 
     if (isAdded(name)) {
       return alert(`${name} is already in contacts`);
     } else {
-      onAddContacts(name, number);
+      dispatch(addContact(name, number));
     }
 
     setName('');
     setNumber('');
-
-    // const handleChange =(e) => {
-//   const {name, value} = e.target;
-
-//   switch (name){
-//     case 'name':
-//       setName(value);
-//       break;
-//     case 'number':
-//       setNumber(value);
-//       break;
-
-//     default: return;
-//   } 
-  
-// }
-    // if (!name || !number) {
-    //   alert('Вы не ввели все контактные данные');
-    //   return;
-    // }
-
-    // if (Number.isNaN(+number)) {
-    //   alert('Телефонный номер должен содержать только цифры');
-    //   return;
-    // }
-
-    // onAddContacts(name, number);
   };
-    return (
-      <form className={styles.TaskEditor} onSubmit={handleSubmit}>
-        <label className={styles.TaskEditor_label}>
+
+  return (
+    <>
+      <form className={styles.form} onSubmit={e => handleSubmit(e)}>
+        <label id="name" htmlFor="name">
           Name
-          <input
-            className={styles.TaskEditor_input}
-            type="text"
-            name="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
         </label>
-        <label className={styles.TaskEditor_label}>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <label id="phone" htmlFor="phone">
           Number
-          <input
-            className={styles.TaskEditor_input}
-            type="text"
-            name="number"
-            value={number}
-            onChange={e => setNumber(e.target.value)}
-          />
         </label>
-        <button className={styles.TaskEditor_button} type="submit">
-          Add contact
+        <input
+          className={styles.input}
+          type="tel"
+          name="number"
+          id="number"
+          value={number}
+          onChange={e => setNumber(e.target.value)}
+        />
+        <button type="submit" disabled={!(name && number)}>
+          add contact
         </button>
       </form>
-    );
-  }
+    </>
+  );
+}
 
-ContactForm.propTypes = {
-  onAddContact: PropTypes.func,
-  name: PropTypes.string,
-  number: PropTypes.string,
+ContactsForm.propTypes = {
+  onAddContacts: propTypes.func,
 };
