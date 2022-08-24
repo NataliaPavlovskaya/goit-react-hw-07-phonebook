@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContacts } from '../../redux/contacts/contacts-operations';
 import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
-import propTypes from 'prop-types';
 import styles from './ContactList.module.css';
 
 export default function ContactsList() {
@@ -25,14 +24,3 @@ export default function ContactsList() {
     </>
   );
 }
-
-ContactsList.propTypes = {
-  onDeleteBtn: propTypes.func,
-  contacts: propTypes.arrayOf(
-    propTypes.exact({
-      id: propTypes.string,
-      name: propTypes.string,
-      phone: propTypes.string,
-    }),
-  ),
-};

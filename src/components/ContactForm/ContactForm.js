@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import propTypes from 'prop-types';
 import styles from './ContactForm.module.css';
 import { addContact } from '../../redux/contacts/contacts-operations';
 import { getIsAdded } from '../../redux/contacts/contacts-selectors';
@@ -55,7 +54,3 @@ export default function ContactsForm() {
     </>
   );
 }
-
-ContactsForm.propTypes = {
-  onAddContacts: propTypes.func,
-};
